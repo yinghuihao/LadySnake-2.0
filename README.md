@@ -13,7 +13,7 @@ Related Link: [Learn Git](https://www.atlassian.com/git/tutorials/syncing) / [Li
 #### Steps to set up your local LadySnake:
 
 1. Open Terminal, go to the path you would like to store this project use `cd` command;
-2. Do `https://github.com/yinghuihao/LadySnake-2.0.git`, this will clone the project from Github to your local machine;
+2. Do `git clone https://github.com/yinghuihao/LadySnake-2.0.git`, this will clone the project from Github to your local machine;
 3. Go into the /LadySnake folder, check your branch is on *master*: `git branch`.
 
 > Branch is like different version of the code. We normally use *master* branch as the major and no-bug version code base for demo/present, and *devel-qa* as the testing and quality assurance branch for team leader/code reviewer to merge code from different members to do the test.
