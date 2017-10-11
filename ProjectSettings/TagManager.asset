@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: barriers
     uniqueID: 1919361301
+    locked: 0
+  - name: barrier1
+    uniqueID: 737714119
     locked: 0
   - name: characters
     uniqueID: 4259853347
