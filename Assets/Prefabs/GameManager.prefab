@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1744763359440864}
+  m_IsPrefabParent: 1
+--- !u!1 &1744763359440864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4312668463466938}
+  - component: {fileID: 114750709197463356}
+  - component: {fileID: 114519898759848978}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4312668463466938
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744763359440864}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.031, y: 0.045, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114519898759848978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744763359440864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947519ee37f01416dab4352e4b96f3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitx: 0
+  exity: 0
+  food1: {fileID: 1605369585367484, guid: 8112acc16e5e242dda60e3f79327600e, type: 2}
+  monk1: {fileID: 1505073672870584, guid: 56536d1938f6041828fd32c7248fa041, type: 2}
+  fences: {fileID: 1312718804604980, guid: 3924bb6a5574c491ea88805d52a61dfd, type: 2}
+  flower1: {fileID: 1002689307987768, guid: 0317653cc3c384526874dce2e98b2d9a, type: 2}
+  flower2: {fileID: 1490454802603176, guid: ea6939d24ec7743af94aaf4ee48ced00, type: 2}
+  flower3: {fileID: 1231487031852294, guid: 0663f02f4d6e341daa70511cadf823ec, type: 2}
+  keng: {fileID: 1825374043653134, guid: 13ea7df32768a43ffa1739bc9cadf560, type: 2}
+  road1: {fileID: 1733275028962890, guid: 5e2151d56ed854037a19b96f1d275c2d, type: 2}
+  road2: {fileID: 1853961475633218, guid: b0bd9639046f6415f99254e886b724dd, type: 2}
+  stone1: {fileID: 1059014866150426, guid: 42ee3bdce301241468888988612bce0f, type: 2}
+  stone2: {fileID: 1286107905929300, guid: 74d16f0584c094dba9e407ea3cd758f8, type: 2}
+  tai: {fileID: 1488399449128128, guid: 9e6a2053ba1f24311bc777ec9a1e9bfc, type: 2}
+  tombstone: {fileID: 1919092388088072, guid: f2338e4f90d2a4e6b881fdef11dc91f5, type: 2}
+  tree1: {fileID: 1123035256737642, guid: d3820689bf0e2463f9addbb02490c433, type: 2}
+  water1: {fileID: 1718012342953876, guid: 13cc87d7ff7a94d82aef1b988cf54fa2, type: 2}
+  water2: {fileID: 1915882938674882, guid: 5be55a65ae7544e12a89fb6efbf2f394, type: 2}
+  water3: {fileID: 1730194724718616, guid: 73f9b5add681d4635b66f2385a1d94e5, type: 2}
+  water4: {fileID: 1623990714195568, guid: 674ba78ebeeb64ffd9f7f1f57befc359, type: 2}
+  well: {fileID: 1018427837931716, guid: 4bc6dcd577a5447d491d491cd7199726, type: 2}
+  wood1: {fileID: 1775137563745540, guid: decb6d63fa43e41f887bbabc477cc8ee, type: 2}
+  exit: {fileID: 1157309986431712, guid: efb2130410aed4737bdacad8d2e562d9, type: 2}
+--- !u!114 &114750709197463356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744763359440864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92c203a9e4334e579a3299d2ead3733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
