@@ -21,14 +21,20 @@ public class GameManager : MonoBehaviour {
 
 	void InitGame(){
 		boardScript.SetupScene(level);
+		//Debug.Log ("init");
 	}
 
 	void InitExit(){
 		boardScript.showExit ();
 	}
+
+	void SpawnFoods(){
+		boardScript.foodSpawn ();
+	}
 		
 	void Start () {
 		Invoke ("InitExit", 20);
+		InvokeRepeating ("SpawnFoods", 3, 4);
 	}
 
 }
