@@ -337,6 +337,12 @@ public class Snake_head : MonoBehaviour {
 		statusText.text = "";
 		Debug.Log ("Hide Status: " + statusText.text);
 	}
+	public int getTailCount(){
+		return tail.Count;
+	}
 
+	public int getLevel(){
+		return level;
+	}
 
 }

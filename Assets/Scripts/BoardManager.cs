@@ -116,12 +116,13 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	public void showExit(){
-		Vector3 pos = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-4.0f, 4.0f), 0f);
-		while (usedPositions.Contains (pos)) {
-			pos = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-4.0f, 4.0f), 0f);
-		}
-		Instantiate (exit, pos, Quaternion.identity);
-		usedPositions.Add (pos);
+//		Vector3 pos = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-4.0f, 4.0f), 0f);
+//		while (usedPositions.Contains (pos)) {
+//			pos = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-4.0f, 4.0f), 0f);
+//		}
+//		Instantiate (exit, pos, Quaternion.identity);
+//		usedPositions.Add (pos);
+		InitItem (exit, -0.8f, -0.4f, 1, 1);
 	}
 
 	public void foodSpawn(){

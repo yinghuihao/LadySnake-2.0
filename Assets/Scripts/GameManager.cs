@@ -8,6 +8,11 @@ public class GameManager : MonoBehaviour {
 	private BoardManager boardScript;                      
 	private int level = 1;
 
+	private int level1;
+	private int count;
+	private bool condition = false;
+	private int  levelFlag;
+
 	void Awake(){
 		if (instance == null) {
 			instance = this;
@@ -33,14 +38,25 @@ public class GameManager : MonoBehaviour {
 	}
 		
 	void Start () {
-		Invoke ("InitExit", 20);
+		//Invoke ("InitExit", 20);
 		InvokeRepeating ("SpawnFoods", 3, 4);
 
 	}
 
 	public int getLevel() {
 		return this.level;
-
 	}
 
+	void Update () {
+		level1 = GameObject.Find ("head").GetComponent<Snake_head> ().getLevel ();
+		count = GameObject.Find ("head").GetComponent<Snake_head> ().getTailCount ();
+		if (levelFlag != level1) {
+			condition = false;
+		}
+		if (count == level1 && condition == false) {
+			Invoke ("InitExit", 1);
+			condition = true;
+		}
+		levelFlag = level1;//levalFlag used to check level change
+	}
 }
