@@ -35,10 +35,12 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		Invoke ("InitExit", 20);
 		InvokeRepeating ("SpawnFoods", 3, 4);
+
 	}
 
 	public int getLevel() {
 		return this.level;
+
 	}
 
 }

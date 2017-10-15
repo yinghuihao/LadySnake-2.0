@@ -17,7 +17,9 @@ public class MonkAttack : MonoBehaviour {
 			player.SendMessage ("TakeDamage", attackDamage*Time.deltaTime);
 			// add here 
 			animator.SetTrigger("monk1Attack");
+
 //			Debug.Log ("In range");
+
 		} else if(other.name.StartsWith("body")){
 			player.SendMessage ("TakeDamage", attackDamage*Time.deltaTime);
 			// add here

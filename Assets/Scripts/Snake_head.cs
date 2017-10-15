@@ -9,6 +9,7 @@ using UnityEditor.SceneManagement;
 
 public class Snake_head : MonoBehaviour {
 
+
 	// 关卡变量
 	public static Snake_head instance = null;   
 	public float levelStartDelay = 1.0f;
@@ -17,6 +18,7 @@ public class Snake_head : MonoBehaviour {
 	private static int level = 0;
 	private bool doingSetup;
 	private GameObject healthSetParent;
+
 
 	//By default the snake moves to right
 	public float currentRotation;
@@ -33,6 +35,7 @@ public class Snake_head : MonoBehaviour {
 	public Text ratioText;
 	private float hitpoint = 150.0f;
 	private float maxHitpoint = 150.0f;
+
 	private Animator animator;
 
 	private bool exit = false;
@@ -43,6 +46,7 @@ public class Snake_head : MonoBehaviour {
 	private float speed = 0.2f;
 	private Text statusText;
 	private float statusDisplayDelay = 1.0f;
+
 
 
 	private void UpdateHealthBar(){
@@ -60,6 +64,7 @@ public class Snake_head : MonoBehaviour {
 		hitpoint += health;
 		UpdateHealthBar ();
 	}
+
 
 	void InitGame(){
 		// 关卡初始化
@@ -107,11 +112,13 @@ public class Snake_head : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 		t = (GameObject)Instantiate (tPrefab, new Vector2(transform.position.x-0.5f, transform.position.y), Quaternion.identity);
 		Invoke ("Move", speed);
+
 		UpdateHealthBar ();
 	}
 
 	// Update is called once per frame, calculate head rotation degree per frame
 	void Update () {
+
 		if (exit || doingSetup) {
 			return;
 		}
@@ -261,11 +268,13 @@ public class Snake_head : MonoBehaviour {
 		}
 
 		Invoke ("Move", speed);
+
 	}
 
 	//Collision with food
 	void OnTriggerEnter2D(Collider2D coll){
 		if (coll.name.StartsWith ("food")) {
+
 			animator.SetTrigger("playerAttack");
 			ate = true;
 			Destroy (coll.gameObject);
@@ -293,12 +302,15 @@ public class Snake_head : MonoBehaviour {
 				Debug.Log ("tail" + tail.Count);
 			}
 			EditorUtility.DisplayDialog ("Congrats", "Going to next level", "OK");
+
 //			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
 			SceneManager.LoadScene (0);
+
 		} else if(coll.name.StartsWith("monk")){
 		} else {
 			Debug.Log ("zhuang" + coll.name);
 			EditorUtility.DisplayDialog ("Oops", "Game over", "OK");
+
 //			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
 			SceneManager.LoadScene (0);
 		} 
@@ -325,5 +337,6 @@ public class Snake_head : MonoBehaviour {
 		statusText.text = "";
 		Debug.Log ("Hide Status: " + statusText.text);
 	}
+
 
 }
