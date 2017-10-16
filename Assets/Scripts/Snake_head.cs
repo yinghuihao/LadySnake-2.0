@@ -42,7 +42,7 @@ public class Snake_head : MonoBehaviour {
 
 	private bool exit = false;
 	private bool attack = false;
-
+	private bool defence = false;
 
 	// 道具相关变量
 	private string[] foodEffects = new string[] { "Speed Up", "Slow Down" };
@@ -50,7 +50,7 @@ public class Snake_head : MonoBehaviour {
 	private int speedIndex;
 	private float speed;
 	private Text statusText;
-	private float statusDisplayDelay = 1.0f;
+	private float statusDisplayDelay = 5.0f;//effect existing time
 
 
 
@@ -341,6 +341,10 @@ public class Snake_head : MonoBehaviour {
 			default:
 				break;
 			}
+		}else if(coll.name.StartsWith ("shield")){
+			Destroy (coll.gameObject);
+			defence = true;
+			ShowStatus ("Defence");
 		} else if (coll.name.StartsWith ("exit")) {
 			exit = true;
 			//			Debug.Log ("tail" + tail.Count);
@@ -357,10 +361,11 @@ public class Snake_head : MonoBehaviour {
 		} else if(coll.name.StartsWith("monk")){
 		} else {
 			Debug.Log ("zhuang" + coll.name);
-			EditorUtility.DisplayDialog ("Oops", "Game over", "OK");
-
-//			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
-			SceneManager.LoadScene (0);
+			if(defence == false){
+				EditorUtility.DisplayDialog ("Oops", "Game over", "OK");
+				//SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+				SceneManager.LoadScene (0);
+			}
 		} 
 	}
 
@@ -389,6 +394,7 @@ public class Snake_head : MonoBehaviour {
 
 	void HideStatus() {
 		statusText.text = "";
+		defence = false;
 		Debug.Log ("Hide Status: " + statusText.text);
 	}
 	public int getTailCount(){

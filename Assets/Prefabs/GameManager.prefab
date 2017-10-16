@@ -56,6 +56,7 @@ MonoBehaviour:
   exity: 0
   food1: {fileID: 1605369585367484, guid: 8112acc16e5e242dda60e3f79327600e, type: 2}
   monk1: {fileID: 1505073672870584, guid: 56536d1938f6041828fd32c7248fa041, type: 2}
+  shield: {fileID: 1001919102340514, guid: 7b0cd18a5ee304cf7bf65244b4e211a1, type: 2}
   fences: {fileID: 1312718804604980, guid: 3924bb6a5574c491ea88805d52a61dfd, type: 2}
   flower1: {fileID: 1002689307987768, guid: 0317653cc3c384526874dce2e98b2d9a, type: 2}
   flower2: {fileID: 1490454802603176, guid: ea6939d24ec7743af94aaf4ee48ced00, type: 2}

@@ -6,12 +6,11 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 	private BoardManager boardScript;                      
-	//private static int level = 1;
 
-	private static int level1 = 1;
+	private static int level = 1;
 	private int count;
 	private bool condition = false;
-	private int  levelFlag = level1;
+	private int  levelFlag = level;
 
 	void Awake(){
 		if (instance == null) {
@@ -25,7 +24,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void InitGame(){
-		boardScript.SetupScene(level1);
+		boardScript.SetupScene(level);
 		//Debug.Log ("init");
 	}
 
@@ -33,27 +32,42 @@ public class GameManager : MonoBehaviour {
 		boardScript.showExit ();
 	}
 
+	void InitDefence(){
+		boardScript.showDefence ();
+	}
+
 	void SpawnFoods(){
 		boardScript.foodSpawn ();
 	}
-		
+
+	//Display total 3 shielfs per i*2+4 seconds
+	void DisplayShield(int sCount){
+		for (int i = 0; i < sCount; i++) {
+			Invoke ("InitDefence", i * 2 + 4);
+		}
+	}	
+
 	void Start () {
-		//Invoke ("InitExit", 20);
+		//Debug.Log ("defence1");
+		//DisplayShield();
 		InvokeRepeating ("SpawnFoods", 3, 4);
+		//Debug.Log ("defence2");
 
 	}
 
 	void Update () {
-		level1 = GameObject.Find ("head").GetComponent<Snake_head> ().getLevel ();
+		level = GameObject.Find ("head").GetComponent<Snake_head> ().getLevel ();
 		count = GameObject.Find ("head").GetComponent<Snake_head> ().getTailCount ();
-		if (levelFlag != level1) {
+		int sCount = 4 - level;//total shield counts for every level
+		if (levelFlag != level) {
 			condition = false;
 			InitGame ();
+			DisplayShield (sCount);
 		}
-		if (count == level1 && condition == false) {
+		if (count == level && condition == false) {
 			Invoke ("InitExit", 1);
 			condition = true;
 		}
-		levelFlag = level1; // levalFlag used to check level change
+		levelFlag = level; // levalFlag used to check level change
 	}
 }

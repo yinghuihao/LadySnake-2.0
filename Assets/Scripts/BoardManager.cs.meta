@@ -1,20 +1,32 @@
 fileFormatVersion: 2
 guid: 947519ee37f01416dab4352e4b96f3cf
-timeCreated: 1507677790
+timeCreated: 1508122010
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - stone: {fileID: 1065255768910430, guid: 2464e2bd6d0aa4d13b204ee265dc1260, type: 2}
-  - big_tree: {fileID: 1632806863324956, guid: 67c1cf9ac19454d098915ec1a8c73bb3, type: 2}
-  - small_tree: {fileID: 1613968676714218, guid: 347b8105dfa334915adba6e75c23d724,
-      type: 2}
-  - m: {fileID: 1542544441503254, guid: dba7a8635cd9845b594189c8b7670a97, type: 2}
-  - border_hor: {fileID: 1508776979259434, guid: a4c2e717e34cf45e8a122ede3a9d5f43,
-      type: 2}
-  - border_ver: {fileID: 1711829005653124, guid: 4587e10f7477d463b852763f070bb5b3,
-      type: 2}
-  - exit: {fileID: 1960909486972380, guid: f971e31ec8c8f48cd9c5ff508cdfdf35, type: 2}
+  - food1: {instanceID: 0}
+  - monk1: {instanceID: 0}
+  - shield: {fileID: 1001919102340514, guid: 7b0cd18a5ee304cf7bf65244b4e211a1, type: 2}
+  - fences: {instanceID: 0}
+  - flower1: {instanceID: 0}
+  - flower2: {instanceID: 0}
+  - flower3: {instanceID: 0}
+  - keng: {instanceID: 0}
+  - road1: {instanceID: 0}
+  - road2: {instanceID: 0}
+  - stone1: {instanceID: 0}
+  - stone2: {instanceID: 0}
+  - tai: {instanceID: 0}
+  - tombstone: {instanceID: 0}
+  - tree1: {instanceID: 0}
+  - water1: {instanceID: 0}
+  - water2: {instanceID: 0}
+  - water3: {instanceID: 0}
+  - water4: {instanceID: 0}
+  - well: {instanceID: 0}
+  - wood1: {instanceID: 0}
+  - exit: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

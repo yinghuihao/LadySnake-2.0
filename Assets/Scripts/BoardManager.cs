@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class BoardManager : MonoBehaviour {
 
 	public float exitx, exity;
-	public GameObject food1, monk1;
+	public GameObject food1, monk1, shield;
 	public GameObject fences, flower1, flower2, flower3, keng, road1, road2, stone1, stone2, tai, tombstone, tree1, water1, water2, water3, water4, well, wood1, exit;
 
 	private Transform boardHolder;
@@ -123,6 +123,16 @@ public class BoardManager : MonoBehaviour {
 //		Instantiate (exit, pos, Quaternion.identity);
 //		usedPositions.Add (pos);
 		InitItem (exit, -0.8f, -0.4f, 1, 1);
+	}
+
+	public void showDefence(){
+		//InitItem (shield, -2.0f, -1.0f, 3, 3);
+		Vector3 pos = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-4.0f, 4.0f), 0f);
+		while (usedPositions.Contains (pos)) {
+			pos = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-4.0f, 4.0f), 0f);
+		}
+		Instantiate (shield, pos, Quaternion.identity);
+		usedPositions.Add (pos);
 	}
 
 	public void foodSpawn(){
