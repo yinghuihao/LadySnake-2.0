@@ -18,6 +18,7 @@ public class Snake_head : MonoBehaviour {
 	private static int level = 0;
 	private bool doingSetup;
 	private GameObject healthSetParent;
+	private int wallDamage = 1;
 
 
 	//By default the snake moves to right
@@ -39,13 +40,15 @@ public class Snake_head : MonoBehaviour {
 	private Animator animator;
 
 	private bool exit = false;
+	private bool attack = false;
+	private bool defence = false;
 
 
 	// 道具相关变量
 	private string[] foodEffects = new string[] { "Speed Up", "Slow Down" };
 	private float speed = 0.2f;
 	private Text statusText;
-	private float statusDisplayDelay = 1.0f;
+	private float statusDisplayDelay = 5.0f;
 
 
 
@@ -92,6 +95,39 @@ public class Snake_head : MonoBehaviour {
 
 
 	
+	}
+
+	protected void AttackWall(Vector2 pos, Vector2 dir){
+		Debug.Log ("Attack");
+		Vector2 end = pos;
+		if (curdir == Vector2.up) {
+			pos = pos + new Vector2 (0.0f, 1.0f);
+			end = pos + new Vector2 (0.0f, 2.0f);
+		} else if (curdir == Vector2.down) {
+			pos = pos + new Vector2 (0.0f, -1.0f);
+			end = pos + new Vector2 (0.0f, -2.0f);
+		} else if (curdir == Vector2.left) {
+			pos = pos + new Vector2 (-1.0f, 0.0f);
+			end = pos + new Vector2 (-2.0f, 0.0f);
+		} else if (curdir == Vector2.right) {
+			pos = pos + new Vector2 (-1.0f, 0.0f);
+			end = pos + new Vector2 (2.0f, 0.0f);
+		}
+
+		RaycastHit2D hit = Physics2D.Raycast (pos, curdir);
+
+		if (hit.transform != null) {
+			//Debug.Log ("Hit wall");
+			Debug.Log(hit.transform);
+			Wall hitWall = hit.transform.GetComponent <Wall> ();
+			if (hitWall != null) {
+				Debug.Log ("Hit wall");
+				hitWall.DamageWall (wallDamage);
+				//Set the attack trigger of the player's animation controller in order to play the player's attack animation.
+				//animator.SetTrigger ("playerChop");
+			}
+		}
+		attack = false;
 	}
 
 	private void HideLevelImage() {
@@ -168,8 +204,9 @@ public class Snake_head : MonoBehaviour {
 			}
 			rotated = true;
 		}
-		if (Input.GetKey (KeyCode.D)) {
-			TakeDamage (1.0f);
+		if (Input.GetKey (KeyCode.A)) {
+
+			AttackWall (transform.position, curdir);
 		} 
 		if (hitpoint < 0) {
 			hitpoint = 0.0f;
@@ -293,9 +330,13 @@ public class Snake_head : MonoBehaviour {
 			default:
 				break;
 			}
-		} else if (coll.name.StartsWith ("exit")) {
+		}else if(coll.name.StartsWith ("shield")){
+			Destroy (coll.gameObject);
+			ShowStatus ("Defence");
+			defence = true;
+		}else if (coll.name.StartsWith ("exit")) {
 			exit = true;
-			//			Debug.Log ("tail" + tail.Count);
+			//Debug.Log ("tail" + tail.Count);
 			while (tail.Count > 0) {
 				tail.RemoveAt (tail.Count - 1);
 				//				Invoke ("removeBody", 0.3f);
@@ -309,10 +350,11 @@ public class Snake_head : MonoBehaviour {
 		} else if(coll.name.StartsWith("monk")){
 		} else {
 			Debug.Log ("zhuang" + coll.name);
+			if(defence == false){
 			EditorUtility.DisplayDialog ("Oops", "Game over", "OK");
-
 //			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
-			SceneManager.LoadScene (0);
+				SceneManager.LoadScene (0);
+			}
 		} 
 	}
 
@@ -335,8 +377,10 @@ public class Snake_head : MonoBehaviour {
 
 	void HideStatus() {
 		statusText.text = "";
+		defence = false;//defence uneffect
 		Debug.Log ("Hide Status: " + statusText.text);
 	}
+
 	public int getTailCount(){
 		return tail.Count;
 	}
