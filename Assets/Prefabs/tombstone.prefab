@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4714650719015976}
   - component: {fileID: 212540909036651980}
   - component: {fileID: 60078061839372904}
+  - component: {fileID: 114032973464046498}
+  - component: {fileID: 114440982040636310}
   m_Layer: 0
   m_Name: tombstone
   m_TagString: Untagged
@@ -74,6 +76,35 @@ PolygonCollider2D:
       - {x: 0.07, y: -0.385}
       - {x: 0.14, y: -0.33499998}
       - {x: 0.14, y: 0.255}
+--- !u!114 &114032973464046498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1919092388088072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf84e95497af41cfb9165d1aad9005c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgSprite: {fileID: 21300000, guid: 2e5969ea603e841f49876b08852ec54f, type: 3}
+  hp: 2
+  spriteRenderer: {fileID: 0}
+--- !u!114 &114440982040636310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1919092388088072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe8582d4f68f4785afa52c5e385b048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgSprite: {fileID: 21300000, guid: cd63757515c2d45b5ad7f5cdcc05b572, type: 3}
+  hp: 3
+  item1: {fileID: 1853307030085992, guid: eeb604fcdcc0e4f1ca3897b1825497a3, type: 2}
+  item2: {fileID: 1591226625832568, guid: fbc9cd7fc90c54f12b55849d0bc8a4d0, type: 2}
 --- !u!212 &212540909036651980
 SpriteRenderer:
   m_ObjectHideFlags: 1

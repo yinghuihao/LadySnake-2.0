@@ -8,6 +8,20 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 
 public class Snake_head : MonoBehaviour {
+
+
+	// 关卡变量
+	public static Snake_head instance = null;   
+	public float levelStartDelay = 1.0f;
+	private Text levelText;
+	private GameObject levelImage;
+	private int levelRange = 2;
+	private static int level = 0;
+	private bool doingSetup;
+	private GameObject healthSetParent;
+	private int wallDamage = 1;
+
+
 	//By default the snake moves to right
 	public float currentRotation;
 	public float tailRotation;
@@ -24,7 +38,21 @@ public class Snake_head : MonoBehaviour {
 	private float hitpoint = 150.0f;
 	private float maxHitpoint = 150.0f;
 
+	private Animator animator;
+
 	private bool exit = false;
+	private bool attack = false;
+
+
+	// 道具相关变量
+	private string[] foodEffects = new string[] { "Speed Up", "Slow Down" };
+	private float[] speedVals = new float[] { 0.6f, 0.4f, 0.2f, 0.15f, 0.1f };
+	private int speedIndex;
+	private float speed;
+	private Text statusText;
+	private float statusDisplayDelay = 1.0f;
+
+
 
 	private void UpdateHealthBar(){
 		float ratio = hitpoint / maxHitpoint;
@@ -42,16 +70,103 @@ public class Snake_head : MonoBehaviour {
 		UpdateHealthBar ();
 	}
 
+
+	void InitGame(){
+		// 关卡初始化
+		LevelUpController();
+		doingSetup = true;
+		levelImage = GameObject.Find ("LevelImage");
+		levelText = GameObject.Find ("LevelText").GetComponent<Text>();
+		levelText.text = "Tower Floor " + level;
+		levelImage.SetActive (true);
+
+		healthSetParent = GameObject.Find ("HealthSet");
+		currentHealthBar = GameObject.Find ("health_lvl").GetComponent<Image> ();
+		ratioText = GameObject.Find ("Text").GetComponent<Text> ();
+		statusText = GameObject.Find ("StatusText").GetComponent<Text> ();
+
+		healthSetParent.SetActive (false);
+
+		Invoke ("HideLevelImage", levelStartDelay);
+
+
+		// 蛇属性初始化
+		speedIndex = 2;
+		speed = speedVals[speedIndex];
+
+		hitpoint = 150.0f;
+		maxHitpoint = 150.0f;
+
+
+	
+	}
+
+	void LevelUpController() {
+		level++;
+		if (level > levelRange) {
+			level = 1;
+		}
+	}
+
+	protected void AttackWall(Vector2 pos, Vector2 dir){
+		Debug.Log ("Attack");
+		Vector2 end = pos;
+		if (curdir == Vector2.up) {
+			pos = pos + new Vector2 (0.0f, 0.6f);
+			end = pos + new Vector2 (0.0f, 0.5f);
+		} else if (curdir == Vector2.down) {
+			pos = pos + new Vector2 (0.0f, -0.6f);
+			end = pos + new Vector2 (0.0f, -0.5f);
+		} else if (curdir == Vector2.left) {
+			pos = pos + new Vector2 (-0.6f, 0.0f);
+			end = pos + new Vector2 (-0.5f, 0.0f);
+		} else if (curdir == Vector2.right) {
+			pos = pos + new Vector2 (-0.6f, 0.0f);
+			end = pos + new Vector2 (0.5f, 0.0f);
+		}
+
+		RaycastHit2D hit = Physics2D.Linecast (pos, end);
+
+		if (hit.transform != null) {
+			//Debug.Log ("Hit wall");
+			Debug.Log(hit.transform);
+			Wall hitWall = hit.transform.GetComponent <Wall> ();
+			if (hitWall != null) {
+				Debug.Log ("Hit wall");
+				hitWall.DamageWall (wallDamage);
+				//Set the attack trigger of the player's animation controller in order to play the player's attack animation.
+				//animator.SetTrigger ("playerChop");
+			}
+		}
+		attack = false;
+	}
+
+	private void HideLevelImage() {
+		levelImage.SetActive (false);
+		healthSetParent.SetActive (true);
+		doingSetup = false;
+	}
+
 	// Use this for initialization
 	void Start () {
+
+		if (instance == null) {
+			instance = this;
+		}
+
+		InitGame();
+
+		animator = GetComponent<Animator> ();
 		t = (GameObject)Instantiate (tPrefab, new Vector2(transform.position.x-0.5f, transform.position.y), Quaternion.identity);
-		InvokeRepeating ("Move", 0.2f, 0.2f);
+		Invoke ("Move", speed);
+
 		UpdateHealthBar ();
 	}
 
 	// Update is called once per frame, calculate head rotation degree per frame
 	void Update () {
-		if (exit) {
+
+		if (exit || doingSetup) {
 			return;
 		}
 		hitpoint -= 1.0f * Time.deltaTime;
@@ -100,8 +215,9 @@ public class Snake_head : MonoBehaviour {
 			}
 			rotated = true;
 		}
-		if (Input.GetKey (KeyCode.D)) {
-			TakeDamage (1.0f);
+		if (Input.GetKey (KeyCode.A)) {
+
+			AttackWall (transform.position, curdir);
 		} 
 		if (hitpoint < 0) {
 			hitpoint = 0.0f;
@@ -198,14 +314,33 @@ public class Snake_head : MonoBehaviour {
 			}
 			rotated = false;
 		}
+
+		Invoke ("Move", speed);
+
 	}
 
 	//Collision with food
 	void OnTriggerEnter2D(Collider2D coll){
 		if (coll.name.StartsWith ("food")) {
+
+			animator.SetTrigger("playerAttack");
 			ate = true;
 			Destroy (coll.gameObject);
 			Heal (2.0f);
+
+			// 随机产生食物效果
+			int effectIndex = Random.Range (0, foodEffects.Length);
+			Debug.Log ("Eat: " + effectIndex);
+			switch (foodEffects[effectIndex]) {
+			case "Speed Up": // 加速
+				SpeedUp (foodEffects[effectIndex]);
+				break;
+			case "Slow Down": // 减速
+				SlowDown(foodEffects[effectIndex]);
+				break;
+			default:
+				break;
+			}
 		} else if (coll.name.StartsWith ("exit")) {
 			exit = true;
 			//			Debug.Log ("tail" + tail.Count);
@@ -215,12 +350,53 @@ public class Snake_head : MonoBehaviour {
 				Debug.Log ("tail" + tail.Count);
 			}
 			EditorUtility.DisplayDialog ("Congrats", "Going to next level", "OK");
-			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+
+//			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+			SceneManager.LoadScene (0);
+
 		} else if(coll.name.StartsWith("monk")){
 		} else {
 			Debug.Log ("zhuang" + coll.name);
 			EditorUtility.DisplayDialog ("Oops", "Game over", "OK");
-			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+
+//			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+			SceneManager.LoadScene (0);
 		} 
 	}
+
+	void SpeedUp(string info) {
+		if (speedIndex < speedVals.Length - 1) {
+			speed = speedVals [++speedIndex];
+			ShowStatus (info);
+		} else {
+			ShowStatus ("Max Speed");
+		}
+	}
+
+	void SlowDown(string info) {
+		if (speedIndex > 0) {
+			speed = speedVals [--speedIndex];
+			ShowStatus (info);
+		} else {
+			ShowStatus ("Min Speed");
+		}
+	}
+
+	void ShowStatus(string info) {
+		statusText.text = info;
+		Invoke ("HideStatus", statusDisplayDelay);
+	}
+
+	void HideStatus() {
+		statusText.text = "";
+		Debug.Log ("Hide Status: " + statusText.text);
+	}
+	public int getTailCount(){
+		return tail.Count;
+	}
+
+	public int getLevel(){
+		return level;
+	}
+
 }
