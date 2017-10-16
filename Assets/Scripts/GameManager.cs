@@ -29,8 +29,12 @@ public class GameManager : MonoBehaviour {
 		//Debug.Log ("init");
 	}
 
-	void InitExit(){
+	void InitExit (){
 		boardScript.showExit ();
+	}
+
+	void InitShield(){
+		boardScript.showShield ();
 	}
 
 	void SpawnFoods(){
@@ -38,8 +42,10 @@ public class GameManager : MonoBehaviour {
 	}
 		
 	void Start () {
-		//Invoke ("InitExit", 20);
+		//Debug.Log ("shield");
+		Invoke ("InitShield", 2);
 		InvokeRepeating ("SpawnFoods", 3, 4);
+		//Debug.Log ("shield1");
 
 	}
 

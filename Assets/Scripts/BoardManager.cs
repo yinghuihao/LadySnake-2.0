@@ -8,8 +8,9 @@ using Random = UnityEngine.Random;
 public class BoardManager : MonoBehaviour {
 
 	public float exitx, exity;
-	public GameObject food1, monk1;
+	public GameObject food1, monk1, shield;
 	public GameObject fences, flower1, flower2, flower3, keng, road1, road2, stone1, stone2, tai, tombstone, tree1, water1, water2, water3, water4, well, wood1, exit;
+
 
 	private Transform boardHolder;
 	private List <Vector3> usedPositions = new List<Vector3> ();
@@ -123,6 +124,10 @@ public class BoardManager : MonoBehaviour {
 //		Instantiate (exit, pos, Quaternion.identity);
 //		usedPositions.Add (pos);
 		InitItem (exit, -0.8f, -0.4f, 1, 1);
+	}
+
+	public void showShield(){
+		InitItem (shield, -0.8f, -1.0f, 3, 3);
 	}
 
 	public void foodSpawn(){
