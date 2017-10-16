@@ -6,12 +6,12 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 	private BoardManager boardScript;                      
-	private int level = 1;
+	//private static int level = 1;
 
-	private int level1;
+	private static int level1 = 1;
 	private int count;
 	private bool condition = false;
-	private int  levelFlag;
+	private int  levelFlag = level1;
 
 	void Awake(){
 		if (instance == null) {
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void InitGame(){
-		boardScript.SetupScene(level);
+		boardScript.SetupScene(level1);
 		//Debug.Log ("init");
 	}
 
@@ -43,20 +43,17 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	public int getLevel() {
-		return this.level;
-	}
-
 	void Update () {
 		level1 = GameObject.Find ("head").GetComponent<Snake_head> ().getLevel ();
 		count = GameObject.Find ("head").GetComponent<Snake_head> ().getTailCount ();
 		if (levelFlag != level1) {
 			condition = false;
+			InitGame ();
 		}
 		if (count == level1 && condition == false) {
 			Invoke ("InitExit", 1);
 			condition = true;
 		}
-		levelFlag = level1;//levalFlag used to check level change
+		levelFlag = level1; // levalFlag used to check level change
 	}
 }

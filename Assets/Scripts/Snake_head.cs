@@ -15,9 +15,11 @@ public class Snake_head : MonoBehaviour {
 	public float levelStartDelay = 1.0f;
 	private Text levelText;
 	private GameObject levelImage;
+	private int levelRange = 2;
 	private static int level = 0;
 	private bool doingSetup;
 	private GameObject healthSetParent;
+	private int wallDamage = 1;
 
 
 	//By default the snake moves to right
@@ -39,11 +41,14 @@ public class Snake_head : MonoBehaviour {
 	private Animator animator;
 
 	private bool exit = false;
+	private bool attack = false;
 
 
 	// 道具相关变量
 	private string[] foodEffects = new string[] { "Speed Up", "Slow Down" };
-	private float speed = 0.2f;
+	private float[] speedVals = new float[] { 0.6f, 0.4f, 0.2f, 0.15f, 0.1f };
+	private int speedIndex;
+	private float speed;
 	private Text statusText;
 	private float statusDisplayDelay = 1.0f;
 
@@ -68,7 +73,7 @@ public class Snake_head : MonoBehaviour {
 
 	void InitGame(){
 		// 关卡初始化
-		level++;
+		LevelUpController();
 		doingSetup = true;
 		levelImage = GameObject.Find ("LevelImage");
 		levelText = GameObject.Find ("LevelText").GetComponent<Text>();
@@ -86,12 +91,54 @@ public class Snake_head : MonoBehaviour {
 
 
 		// 蛇属性初始化
-		speed = 0.2f;
+		speedIndex = 2;
+		speed = speedVals[speedIndex];
+
 		hitpoint = 150.0f;
 		maxHitpoint = 150.0f;
 
 
 	
+	}
+
+	void LevelUpController() {
+		level++;
+		if (level > levelRange) {
+			level = 1;
+		}
+	}
+
+	protected void AttackWall(Vector2 pos, Vector2 dir){
+		Debug.Log ("Attack");
+		Vector2 end = pos;
+		if (curdir == Vector2.up) {
+			pos = pos + new Vector2 (0.0f, 0.6f);
+			end = pos + new Vector2 (0.0f, 0.5f);
+		} else if (curdir == Vector2.down) {
+			pos = pos + new Vector2 (0.0f, -0.6f);
+			end = pos + new Vector2 (0.0f, -0.5f);
+		} else if (curdir == Vector2.left) {
+			pos = pos + new Vector2 (-0.6f, 0.0f);
+			end = pos + new Vector2 (-0.5f, 0.0f);
+		} else if (curdir == Vector2.right) {
+			pos = pos + new Vector2 (-0.6f, 0.0f);
+			end = pos + new Vector2 (0.5f, 0.0f);
+		}
+
+		RaycastHit2D hit = Physics2D.Linecast (pos, end);
+
+		if (hit.transform != null) {
+			//Debug.Log ("Hit wall");
+			Debug.Log(hit.transform);
+			Wall hitWall = hit.transform.GetComponent <Wall> ();
+			if (hitWall != null) {
+				Debug.Log ("Hit wall");
+				hitWall.DamageWall (wallDamage);
+				//Set the attack trigger of the player's animation controller in order to play the player's attack animation.
+				//animator.SetTrigger ("playerChop");
+			}
+		}
+		attack = false;
 	}
 
 	private void HideLevelImage() {
@@ -168,8 +215,9 @@ public class Snake_head : MonoBehaviour {
 			}
 			rotated = true;
 		}
-		if (Input.GetKey (KeyCode.D)) {
-			TakeDamage (1.0f);
+		if (Input.GetKey (KeyCode.A)) {
+
+			AttackWall (transform.position, curdir);
 		} 
 		if (hitpoint < 0) {
 			hitpoint = 0.0f;
@@ -317,15 +365,21 @@ public class Snake_head : MonoBehaviour {
 	}
 
 	void SpeedUp(string info) {
-		speed = 0.1f;
-		Debug.Log ("SpeedUp: " + speed);
-		ShowStatus (info);
+		if (speedIndex < speedVals.Length - 1) {
+			speed = speedVals [++speedIndex];
+			ShowStatus (info);
+		} else {
+			ShowStatus ("Max Speed");
+		}
 	}
 
 	void SlowDown(string info) {
-		speed = 0.4f;
-		Debug.Log ("SlowDown " + speed);
-		ShowStatus (info);
+		if (speedIndex > 0) {
+			speed = speedVals [--speedIndex];
+			ShowStatus (info);
+		} else {
+			ShowStatus ("Min Speed");
+		}
 	}
 
 	void ShowStatus(string info) {

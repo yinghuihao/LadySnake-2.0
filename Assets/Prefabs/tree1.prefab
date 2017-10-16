@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4071581771755754}
   - component: {fileID: 212646221618770460}
   - component: {fileID: 60177623627932890}
+  - component: {fileID: 114008958564153120}
+  - component: {fileID: 114031474728613966}
   m_Layer: 0
   m_Name: tree1
   m_TagString: Untagged
@@ -84,6 +86,35 @@ PolygonCollider2D:
       - {x: 0.16, y: -0.345}
       - {x: 0.16, y: -0.235}
       - {x: 0.32999998, y: -0.065}
+--- !u!114 &114008958564153120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123035256737642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf84e95497af41cfb9165d1aad9005c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgSprite: {fileID: 21300000, guid: 2e5969ea603e841f49876b08852ec54f, type: 3}
+  hp: 2
+  spriteRenderer: {fileID: 0}
+--- !u!114 &114031474728613966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123035256737642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe8582d4f68f4785afa52c5e385b048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgSprite: {fileID: 21300000, guid: cd63757515c2d45b5ad7f5cdcc05b572, type: 3}
+  hp: 3
+  item1: {fileID: 1853307030085992, guid: eeb604fcdcc0e4f1ca3897b1825497a3, type: 2}
+  item2: {fileID: 1591226625832568, guid: fbc9cd7fc90c54f12b55849d0bc8a4d0, type: 2}
 --- !u!212 &212646221618770460
 SpriteRenderer:
   m_ObjectHideFlags: 1

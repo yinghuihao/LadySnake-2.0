@@ -65,7 +65,7 @@ public class BoardManager : MonoBehaviour {
 
 	void parseData(string fileName){
 		//Call InitItem to generate items
-		using (StreamReader r = new StreamReader("./Assets/Level_Design/test.json"))
+		using (StreamReader r = new StreamReader("./Assets/Level_Design/" + fileName + ".json"))
 		{
 			string json = r.ReadToEnd();
 			JSONObject jobj = new JSONObject (json);
